@@ -55,7 +55,6 @@ class PhonebookTest(unittest.TestCase):
         assert hasattr(self.phonebook, "searchName")
 
     def test_searchName__should__return_record(self):
-
         name = "John"
         mobile = "123 456"
 
@@ -69,5 +68,22 @@ class PhonebookTest(unittest.TestCase):
         self.assertIsNotNone(result)
         self.assertIn(record, result)
 
+    def test_searchName_with_partial_string__should__return_record(self):
 
+        name = "John"
+        mobile = "123 456"
 
+        data = []
+        record = Entry(name=name, mobile=mobile)
+        data.append(record)
+
+        self.phonebook.records = data
+        result = self.phonebook.searchName(name[2:]) # start
+
+        self.assertIsNotNone(result)
+        self.assertIn(record, result)
+
+        result = self.phonebook.searchName(name[:2]) # end
+
+        self.assertIsNotNone(result)
+        self.assertIn(record, result)
