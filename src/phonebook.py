@@ -29,7 +29,7 @@ class Phonebook:
         result = []
 
         for record in self.records:
-            if record.name.contains(text):
+            if record.name.__contains__(text):
                 result.append(record)
 
         return result
