@@ -24,6 +24,16 @@ class Phonebook:
 
         self.records.append(record)
 
+    def searchName(self, text):
+
+        result = []
+
+        for record in self.records:
+            if record.name.contains(text):
+                result.append(record)
+
+        return result
+
     def _readFile(self):
 
         data = ""

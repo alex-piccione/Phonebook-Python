@@ -45,9 +45,13 @@ class PhonebookTest(unittest.TestCase):
 
         assert os.path.isfile(filename)
 
-    def test_addRecord__should_exists(self):
+    def test_addRecord__should__exists(self):
 
         assert hasattr(self.phonebook, "addRecord")
+
+    def test_searchName__should__exists(self):
+
+        assert hasattr(self.phonebook, "searchName")
 
 
 
