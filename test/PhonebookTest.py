@@ -28,3 +28,24 @@ class PhonebookTest(unittest.TestCase):
         self.assertIsNotNone(data)
         self.assertIsInstance(data, str)
 
+    def test_writeFile__should__exists(self):
+
+        assert hasattr(self.phonebook, "_readFile")
+
+    def test_writeFile__when__file_not_exists__should__create_a_file(self):
+
+        filename = os.path.join(os.getcwd(), "test_phonebook.js")
+        if os.path.isfile(filename):
+            os.remove(filename)
+
+        self.phonebook = Phonebook(filename)
+        self.phonebook._writeFile()
+
+        assert os.path.isfile(filename)
+
+
+
+
+
+
+

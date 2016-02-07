@@ -34,6 +34,6 @@ class Phonebook:
 
         text = json.dumps(self.records)
 
-        with open(self.filename, 'rw') as f:
+        with open(self.filename, 'a') as f:
             f.write(text)
             f.close()
