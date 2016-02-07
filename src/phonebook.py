@@ -1,4 +1,5 @@
 import json
+import os.path
 
 
 class Phonebook:
@@ -12,8 +13,8 @@ class Phonebook:
     def loadRecords(self):
 
         allText = self._readFile()
-
-        self.records = json.loads(allText)
+        if allText != "":
+            self.records = json.loads(allText)
 
     def saveRecords(self):
 
@@ -21,10 +22,12 @@ class Phonebook:
 
     def _readFile(self):
 
-        data = None
-        with open(self.filename, 'r') as f:
-            data = f.read()
-            f.close()
+        data = ""
+        if os.path.isfile(self.filename):
+            with open(self.filename, 'r') as f:
+                data = f.read()
+                f.close()
+
         return data
 
     def _writeFile(self):
