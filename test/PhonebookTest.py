@@ -37,9 +37,7 @@ class PhonebookTest(unittest.TestCase):
 
     def test_writeFile__when__file_not_exists__should__create_a_file(self):
 
-        filename = os.path.join(filenameDir, "test_phonebook.js")
-        if os.path.isfile(filename):
-            os.remove(filename)
+        filename = self._getInexistentFilename()
 
         self.phonebook = Phonebook(filename)
         self.phonebook._writeFile()
@@ -87,3 +85,30 @@ class PhonebookTest(unittest.TestCase):
 
         self.assertIsNotNone(result)
         self.assertIn(record, result)
+
+    def test_saveRecords__when__a_record_was_added__should__write_a_file_that_contains_the_added_name(self):
+
+        filename = self._getInexistentFilename()
+        self.phonebook = Phonebook(filename)
+
+        entry = self._getTestEntry()
+        self.phonebook.addRecord(entry)
+        self.phonebook.saveRecords()
+
+        # Assert
+        phonebook = Phonebook(filename)
+        self.assertIn(phonebook.records, entry)
+
+    def _getInexistentFilename(self):
+
+        filename = os.path.join(filenameDir, "test_phonebook.js")
+        if os.path.isfile(filename):
+            os.remove(filename)
+
+        return filename
+
+    def _getTestEntry(self):
+        name = "John"
+        mobile = "+39 333 123456"
+        entry = Entry(name=name, mobile=mobile)
+        return entry
