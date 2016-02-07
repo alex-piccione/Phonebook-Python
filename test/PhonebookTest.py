@@ -14,7 +14,7 @@ class PhonebookTest(unittest.TestCase):
         filename = os.path.join(filenameDir, "phonebook.js")
         self.phonebook = Phonebook(filename)
 
-    def test_readFile__when__file_not_exists__should__return_an_empty_string(self):
+    def test_readFile__when__file_not_exists__should__return_an_empty_list(self):
         filename = os.path.join(filenameDir, "not_exists.js")
         if os.path.exists(filename):
             os.remove(filename)
@@ -23,13 +23,14 @@ class PhonebookTest(unittest.TestCase):
         data = self.phonebook._readFile()
 
         self.assertIsNotNone(data)
-        assert data == ""
+        self.assertEquals(data, [])
 
-    def test_readFile__should__return_a_text(self):
+    def test_readFile__should__return_an_empty_list(self):
 
         data = self.phonebook._readFile()
         self.assertIsNotNone(data)
-        self.assertIsInstance(data, str)
+        self.assertIsInstance(data, list)
+        self.assertEquals(data, [])
 
     def test_writeFile__should__exists(self):
 

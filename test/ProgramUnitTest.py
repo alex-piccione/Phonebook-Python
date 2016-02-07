@@ -1,15 +1,16 @@
 import unittest
 from unittest.mock import MagicMock
-import sys
-from io import StringIO
-
 from src.program import Program
+from src.phonebook import Phonebook
+from helper import Helper
 
 
 class ProgramTest (unittest.TestCase):
 
     def setUp(self):
-        self.program = Program()
+        phonebook = MagicMock()
+        phonebook.records = []
+        self.program = Program(phonebook)
         self.program._read = MagicMock(return_value="")
         self.program._write = MagicMock()
 
@@ -33,7 +34,23 @@ class ProgramTest (unittest.TestCase):
         assert hasattr(self.program, "getList")
 
     def test_get_list__should__return_a_list(self):
-        phonebook = self.program.getList()
-        self.assertIsNotNone(phonebook)
-        self.assertIsInstance(phonebook, list)
+        entries = self.program.getList()
+        self.assertIsNotNone(entries)
+        self.assertIsInstance(entries, list)
         #assert hasattr(phonebook, "__iter__"); # is iterable
+
+    def test_getList__when__an_entry_is_added__should__return_a_list_with(self):
+
+        # Arrange
+        entry = Helper.getTestEntry()
+
+        phonebook = Phonebook(Helper.filename)
+        phonebook.records = MagicMock(return_value=[entry])
+        program = Program(Helper.filename)
+
+        # Act
+        entries = self.program.getList()
+
+        # Assert
+        Helper.assertPhonebookContainsEntry(phonebook, entry)
+
