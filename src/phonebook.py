@@ -20,6 +20,10 @@ class Phonebook:
 
         self._writeFile()
 
+    def addRecord(self, record):
+
+        self.records.append(record)
+
     def _readFile(self):
 
         data = ""
