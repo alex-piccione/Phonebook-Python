@@ -4,15 +4,17 @@ import os.path
 
 from src.phonebook import Phonebook
 
+filenameDir = os.path.join(os.getcwd(), "ignore")
+
 
 class PhonebookTest(unittest.TestCase):
 
     def setUp(self):
-        filename = os.path.join(os.getcwd(), "phonebook.js")
+        filename = os.path.join(filenameDir, "phonebook.js")
         self.phonebook = Phonebook(filename)
 
     def test_readFile__when__file_not_exists__should__return_an_empty_string(self):
-        filename = os.path.join(os.getcwd(), "not_exists.js")
+        filename = os.path.join(filenameDir, "not_exists.js")
         if os.path.exists(filename):
             os.remove(filename)
 
@@ -34,7 +36,7 @@ class PhonebookTest(unittest.TestCase):
 
     def test_writeFile__when__file_not_exists__should__create_a_file(self):
 
-        filename = os.path.join(os.getcwd(), "test_phonebook.js")
+        filename = os.path.join(filenameDir, "test_phonebook.js")
         if os.path.isfile(filename):
             os.remove(filename)
 
