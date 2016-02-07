@@ -1,4 +1,4 @@
-import json
+import pickle
 import os.path
 
 
@@ -12,9 +12,10 @@ class Phonebook:
 
     def loadRecords(self):
 
-        allText = self._readFile()
-        if allText != "":
-            self.records = json.loads(allText)
+        data = self._readFile()
+        if data is None:
+            data = []
+        self.records = data
 
     def saveRecords(self):
 
@@ -36,18 +37,20 @@ class Phonebook:
 
     def _readFile(self):
 
-        data = ""
+        data = []
         if os.path.isfile(self.filename):
-            with open(self.filename, 'r') as f:
-                data = f.read()
+            with open(self.filename, 'rb') as f:
+                #data = f.read()
+                data = pickle.load(f)
                 f.close()
 
         return data
 
     def _writeFile(self):
 
-        text = json.dumps(self.records)
+        #text = pickle.dumps(self.records)
 
-        with open(self.filename, 'a') as f:
-            f.write(text)
+        with open(self.filename, 'ab') as f:
+            #f.write(text)
+            pickle.dump(self.records, f)
             f.close()

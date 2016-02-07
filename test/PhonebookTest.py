@@ -97,7 +97,7 @@ class PhonebookTest(unittest.TestCase):
 
         # Assert
         phonebook = Phonebook(filename)
-        self.assertIn(phonebook.records, entry)
+        self._assertExists(entry, phonebook)
 
     def _getInexistentFilename(self):
 
@@ -112,3 +112,9 @@ class PhonebookTest(unittest.TestCase):
         mobile = "+39 333 123456"
         entry = Entry(name=name, mobile=mobile)
         return entry
+
+    def _assertExists(self, entry, phonebook):
+        for item in phonebook.records:
+            if item.name == entry.name and item.mobile == entry.mobile:
+                return True
+        return False
