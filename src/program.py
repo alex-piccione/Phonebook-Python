@@ -7,7 +7,6 @@ class Program:
    1. Search number
    9. Quit
 """
-
         self.phonebook = phonebook
 
     def run(self):
@@ -25,7 +24,7 @@ class Program:
         return self.phonebook.records
 
     def _read(self, text=None):
-        return input(text)
+        return input(text or "")
 
     def _write(self, text):
-        print()
+        print(text)
