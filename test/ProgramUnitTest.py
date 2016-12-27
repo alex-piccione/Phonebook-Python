@@ -1,8 +1,9 @@
-import unittest
+import unittest.mock
 from unittest.mock import MagicMock
+from unittest.mock import patch
 from src.program import Program
 from src.phonebook import Phonebook
-from helper import Helper
+from test.helper import Helper
 
 
 class ProgramTest (unittest.TestCase):
@@ -37,7 +38,7 @@ class ProgramTest (unittest.TestCase):
         entries = self.program.getList()
         self.assertIsNotNone(entries)
         self.assertIsInstance(entries, list)
-        #assert hasattr(phonebook, "__iter__"); # is iterable
+        # assert hasattr(phonebook, "__iter__"); # is iterable
 
     def test_getList__when__an_entry_is_added__should__return_a_list_with(self):
 
@@ -53,4 +54,17 @@ class ProgramTest (unittest.TestCase):
 
         # Assert
         Helper.assertPhonebookContainsEntry(phonebook, entry)
+
+    def test_showList__should__call_getList(self):
+        program = Program(Helper.filename)
+        list = []
+
+        with patch.object(self.program, "getList", return_value=list) as mock_getList:
+            # Act
+            self.program.showList()
+
+        mock_getList.assert_called_once_with()
+
+
+
 

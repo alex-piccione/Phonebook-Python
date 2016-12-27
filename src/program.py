@@ -19,6 +19,18 @@ class Program:
 
         selection = self._read()
 
+        if selection == "2": self.showList()
+
+
+    def showList(self):
+
+        records = self.getList()
+        text = 'Name | Number'
+        for entry in records:
+            text += '{name} {number}'.format(name=entry.Name, number=entry.Number)
+
+        self._write(text)
+
     def getList(self):
 
         return self.phonebook.records
